@@ -1,12 +1,11 @@
-'use client' // because the hook is dependant on browser api
-
+'use client' 
 import React from 'react'
 import Link from 'next/link'
 import { IoBugSharp } from "react-icons/io5";
-import { usePathname } from 'next/navigation'; // hook
+import { usePathname } from 'next/navigation'; 
 import classnames from 'classnames'
 const NavBar = () => {
-    const currentPath = usePathname(); // / /issues
+    const currentPath = usePathname(); 
     const links = [
         { label: 'Dashboard', href: '/' },
         { label: 'Issues', href: '/issues' },
@@ -26,7 +25,6 @@ const NavBar = () => {
                                 'text-zinc-900' : link.href === currentPath,
                                 'text-zinc-500' : link.href != currentPath,
                                 'hover:text-zinc-800 transition-colors':true // render this class all time
-
                             })}
                             href={link.href}> {link.label}
                         </Link>

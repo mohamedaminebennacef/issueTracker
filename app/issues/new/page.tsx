@@ -12,12 +12,14 @@ import { createIssueSchema } from '@/app/validationSchema';
 import { z } from 'zod';
 import { Text } from '@radix-ui/themes';
 import ErrorMessage from '@/app/components/ErrorMessage';
+import Spinner from '@/app/components/Spinner';
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
     const router = useRouter();
     const [error, setErr] = useState('');
+    const [isSubmitting, setSubmitting] = useState(false);
     const { register, control, handleSubmit, formState: { errors } } = useForm<IssueForm>({
         resolver: zodResolver(createIssueSchema)
     });
@@ -33,9 +35,11 @@ const NewIssuePage = () => {
                 {
                     handleSubmit(async (data) => {
                         try {
+                            setSubmitting(true)
                             await axios.post('/api/issues', data);
                             router.push('/issues');
                         } catch (error) {
+                            setSubmitting(false)
                             setErr('Please fill out the Title and Description field')
                         }
                     })
@@ -50,8 +54,8 @@ const NewIssuePage = () => {
                     render={({ field }) => <SimpleMDE placeholder="Description" {...field} />}
                 />
                 <ErrorMessage>{errors.description?.message}</ErrorMessage>
-                <Button>Submit New Issue</Button>
-            </form>
+                <Button disabled={isSubmitting}>Submit New Issue {isSubmitting && <Spinner/>}</Button>
+            </form> 
         </div>
     )
 }

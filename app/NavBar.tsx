@@ -1,4 +1,4 @@
-'use client' 
+'use client' // do not render this page on the server rather only in the browser
 import React from 'react'
 import Link from 'next/link'
 import { IoBugSharp } from "react-icons/io5";

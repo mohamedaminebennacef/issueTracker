@@ -12,7 +12,7 @@ const statusMap: Record<
 > = {
     OPEN: { label: 'Open', color: 'green' },
     IN_PROGRESS: { label: 'In Progress', color: 'violet' },
-    CLOSED: { label: 'Closed', color: 'green' }
+    CLOSED: { label: 'Closed', color: 'red' }
 } // we define the mapping outside the component because we don't need this everytime we render the component
 
 // this component receive the status of an issue as a prop

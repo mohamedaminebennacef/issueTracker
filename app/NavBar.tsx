@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { IoBugSharp } from "react-icons/io5";
 import { usePathname } from 'next/navigation'; 
 import classnames from 'classnames'
+
+
 const NavBar = () => {
     const currentPath = usePathname(); 
     const links = [

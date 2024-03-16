@@ -11,16 +11,18 @@ import { createIssueSchema } from '@/app/validationSchema';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import "easymde/dist/easymde.min.css";
-import SimpleMDE from "react-simplemde-editor";
-
+import dynamic from 'next/dynamic'
 import { Button, Callout, TextField } from '@radix-ui/themes';
 
-
+const SimpleMDE = dynamic(
+    () => import('react-simplemde-editor'),
+    { ssr : false} // tell next js to not render this component on the server
+    )
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 
 
-const NewIssuePage =  () => {
+const NewIssuePage = () => {
     const router = useRouter();
     const [error, setErr] = useState('');
     const [isSubmitting, setSubmitting] = useState(false);

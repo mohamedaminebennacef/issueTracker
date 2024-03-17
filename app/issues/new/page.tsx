@@ -16,7 +16,7 @@ import { Button, Callout, TextField } from '@radix-ui/themes';
 
 const SimpleMDE = dynamic(
     () => import('react-simplemde-editor'),
-    { ssr : false} // tell next js to not render this component on the server
+    { ssr : false} // tell next js to not render this component on the server ssr(server side rendering)
     )
 type IssueForm = z.infer<typeof createIssueSchema>;
 

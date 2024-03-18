@@ -1,7 +1,7 @@
-import React from 'react'
-import { notFound } from 'next/navigation'
 import dynamic from 'next/dynamic'
+import { notFound } from 'next/navigation'
 import IssueFormSkeleton from '../../_components/IssueFormSkeleton'
+import prisma from '@/prisma/client'
 const IssueForm = dynamic(
   () => import("../../_components/IssueForm"),
   {

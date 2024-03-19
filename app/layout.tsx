@@ -3,13 +3,14 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NavBar from './NavBar'
 import '@radix-ui/themes/styles.css';
-import { Theme, ThemePanel } from '@radix-ui/themes'
+import { Container, Theme, ThemePanel } from '@radix-ui/themes'
 import './theme-config.css'
+import AuthProvider from './auth/Provider';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable : '--font-inter',
+  variable: '--font-inter',
 })
 
 export const metadata: Metadata = {
@@ -25,12 +26,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <Theme appearance="light" accentColor="violet" scaling="110%">
-          <NavBar />
-          <main className='p-5'>
-            {children}
-          </main>
-        </Theme>
+        <AuthProvider>
+          <Theme appearance="light" accentColor="violet" scaling="110%">
+            <NavBar />
+            <main className='p-5'>
+              {children}
+            </main>
+          </Theme>
+        </AuthProvider>
       </body>
     </html>
   )

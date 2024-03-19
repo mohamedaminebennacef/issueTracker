@@ -1,13 +1,13 @@
-'use client' // do not render this page on the server rather only in the browser
-import React from 'react'
-import Link from 'next/link'
-import { IoBugSharp } from "react-icons/io5";
+'use client' 
+import { Avatar, Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import classnames from 'classnames';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import classnames from 'classnames'
-import { useSession } from 'next-auth/react'
-import { Avatar, Box, Container, DropdownMenu, DropdownMenuContent, DropdownMenuLabel, Flex, Text } from '@radix-ui/themes';
+import { IoBugSharp } from "react-icons/io5";
+import {Skeleton} from '@/app/components'
 
-const NavBar = () => {
+const NavBar = async () => {
     return (
         <nav className=' border-b mb-5 px-5 py-3 '>
             <Container>
@@ -25,7 +25,6 @@ const NavBar = () => {
         </nav>
     )
 }
-
 const NavLinks = () => {
     const currentPath = usePathname();
     const links = [
@@ -52,7 +51,7 @@ const NavLinks = () => {
 }
 const AuthStatus = () => {
     const { status, data: session } = useSession();
-    if (status === "loading") return null
+    if (status === "loading") return <Skeleton width="3rem"/>
     if (status === "unauthenticated") return <Link href="/api/auth/signin" className='nav-link'>Login</Link>
     return (
         <Box>

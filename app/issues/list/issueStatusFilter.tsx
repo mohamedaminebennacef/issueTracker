@@ -11,7 +11,7 @@ const statuses: { label : string , value? : Status}[]= [
     { label : 'Closed' , value : 'CLOSED'}
 ]
 
-const issueFilterStatus = () => {
+const IssueFilterStatus = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     return (
@@ -23,10 +23,10 @@ const issueFilterStatus = () => {
             const query = params.size ? '?' + params.toString() : '';
             router.push('/issues/list'+query);
         }}>
-            <Select.Trigger placeholder="Filter by status..."/>
+            <Select.Trigger/>
             <Select.Content>
                 {statuses.map( status => (
-                    <Select.Item key={status.value} value={status.value || ''}>
+                    <Select.Item key={status.label} value={status.value || ''}>
                         {status.label}
                     </Select.Item>
                 ))}
@@ -35,4 +35,4 @@ const issueFilterStatus = () => {
     )
 }
 
-export default issueFilterStatus
+export default IssueFilterStatus

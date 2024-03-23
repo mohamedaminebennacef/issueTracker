@@ -24,4 +24,5 @@ const EditIssuePage = async({params} : Props) => {
   )
 }
 
+
 export default EditIssuePage

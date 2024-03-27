@@ -9,7 +9,6 @@ import authOptions from '@/app/auth/authOptions'
 import AssigneeSelect from './AssigneeSelect'
 import { cache } from 'react'
 
-// grab the id paramter from the route
 interface Props {
   params: { id: string }
 }

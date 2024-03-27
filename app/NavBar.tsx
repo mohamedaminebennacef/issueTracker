@@ -1,27 +1,27 @@
 'use client' 
+import { Skeleton } from '@/app/components';
 import { Avatar, Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
 import classnames from 'classnames';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IoBugSharp } from "react-icons/io5";
-import {Skeleton} from '@/app/components'
+import { MdDashboard } from "react-icons/md";
 
-const NavBar = async () => {
+
+const NavBar = () => {
     return (
         <nav className=' border-b mb-5 px-5 py-3 '>
             <Container>
                 <Flex justify="between">
                     <Flex align="center" gap="3">
                         <Link href="/">
-                            <IoBugSharp />
+                            <MdDashboard />
                         </Link>
                         <NavLinks />
                     </Flex>
                     <AuthStatus />
                 </Flex>
             </Container >
-
         </nav>
     )
 }
@@ -57,16 +57,19 @@ const AuthStatus = () => {
         <Box>
             <DropdownMenu.Root>
                 <DropdownMenu.Trigger>
-                    <Avatar src={session!.user!.image!} fallback="?" size="2" radius="full" className='cursor-pointer' />
+                    <Avatar 
+                           src={session!.user!.image!}
+                           fallback="?" size="2" 
+                           radius="full" 
+                           className='cursor-pointer' 
+                    />
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
                     <DropdownMenu.Label>
-                        <Text size="2">
-                            {session!.user!.email}
-                        </Text>
+                        <Text size="2">{session!.user!.email}</Text>
                     </DropdownMenu.Label>
-                    <DropdownMenu.Item className='cursor-pointer transition duration-100 ease-in-out'>
-                        <Link href="/api/auth/signout">Log out</Link>
+                    <DropdownMenu.Item className='cursor-pointer transition duration-100 ease-in-out flex justify-center items-center'>
+                        <Link href="/api/auth/signout" className='m-20'>Log out</Link>
                     </DropdownMenu.Item>
                 </DropdownMenu.Content>
             </DropdownMenu.Root>

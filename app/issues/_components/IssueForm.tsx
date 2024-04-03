@@ -19,14 +19,17 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
   const [error, setErr] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
-  const {register,control,handleSubmit,formState: { errors },} = useForm<IssueFormData>({resolver: zodResolver(issueSchema)});
-  
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueFormData>({ resolver: zodResolver(issueSchema) });
+
   const onSubmit = handleSubmit(async (data) => {
-    alert("hey")
-    console.log(issue?.title)
     try {
       setSubmitting(true);
-      if (issue) await axios.patch("/api/issues/"+issue.id, data);
+      if (issue) await axios.patch("/api/issues/" + issue.id, data);
       else await axios.post("/api/issues", data);
       router.push("/issues/list");
       router.refresh();
@@ -34,7 +37,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       setSubmitting(false);
       setErr("Please fill out the Title and Description field");
     }
-});
+  });
 
   return (
     <div className="max-w-xl">
@@ -45,18 +48,27 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       )}
       <form className="space-y-2" onSubmit={onSubmit}>
         <TextField.Root>
-          <TextField.Input defaultValue={issue?.title}  placeholder="Title" {...register("title")}/>
+          <TextField.Input
+            defaultValue={issue?.title}
+            placeholder="Title"
+            {...register("title")}
+          />
         </TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
-        <Controller name="description" control={control} defaultValue={issue?.description} render={({ field }) => (
+        <Controller
+          name="description"
+          control={control}
+          defaultValue={issue?.description}
+          render={({ field }) => (
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Flex direction="column" gap="2" align="start">
-          <Select.Root  size="2" defaultValue="OPEN">
+          <Controller name="status" control={control} defaultValue={issue?.status} render={({field : {onChange,...fieldProps}}) => (
+          <Select.Root size="2" defaultValue="OPEN" {...fieldProps} onValueChange={onChange}>
             <Select.Trigger />
-            <Select.Content>
+            <Select.Content >
               <Select.Group>
                 <Select.Label>Status</Select.Label>
                 <Select.Item value="OPEN">Open</Select.Item>
@@ -65,6 +77,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
               </Select.Group>
             </Select.Content>
           </Select.Root>
+          )}
+          />
           <Button disabled={isSubmitting}>
             {issue ? "Update Issue" : "Submit New Issue"}{" "}
             {isSubmitting && <Spinner />}

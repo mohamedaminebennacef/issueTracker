@@ -23,13 +23,17 @@ const IssueFilterStatus = () => {
             const query = params.size ? '?' + params.toString() : '';
             router.push('/issues/list'+query);
         }}>
-            <Select.Trigger/>
+            <Select.Trigger />
             <Select.Content>
+            <Select.Group>
+
+            <Select.Label>Status</Select.Label>
                 {statuses.map( status => (
                     <Select.Item key={status.label} value={status.value || ''}>
                         {status.label}
                     </Select.Item>
                 ))}
+            </Select.Group>
             </Select.Content>
         </Select.Root>
     )
